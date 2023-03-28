@@ -7,7 +7,7 @@ import (
 
 // Unicorn Tests
 func TestUnicorn(t *testing.T) {
-	assertHelper := func(t testing.TB, got, want string) {
+	assert := func(t testing.TB, got, want string) {
 		t.Helper()
 		if got != want {
 			t.Errorf("\nGot: %v\nWant: %v", got, want)
@@ -19,15 +19,23 @@ func TestUnicorn(t *testing.T) {
 		got := unicorn.name
 		want := "Robert"
 
-		assertHelper(t, got, want)
+		assert(t, got, want)
 	})
 
-	t.Run("unicorn color", func(t *testing.T) {
+	t.Run("unicorn default color", func(t *testing.T) {
 		unicorn := Unicorn{"Margaret"}
-		got := unicorn.color("Silver")
+		got := unicorn.defaultColor()
 		want := "Silver"
 
-		assertHelper(t, got, want)
+		assert(t, got, want)
+	})
+
+	t.Run("unicorn new color", func(t *testing.T) {
+		unicorn := Unicorn{"Margaret"}
+		got := unicorn.color("Purple")
+		want := "Purple"
+
+		assert(t, got, want)
 	})
 
 	t.Run("unicorn say", func(t *testing.T) {
@@ -35,6 +43,6 @@ func TestUnicorn(t *testing.T) {
 		got := unicorn.say("Wonderful!")
 		want := "**;* Wonderful! **;*"
 
-		assertHelper(t, got, want)
+		assert(t, got, want)
 	})
 }
